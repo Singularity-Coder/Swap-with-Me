@@ -1,3 +1,4 @@
+![alt text](https://github.com/Singularity-Coder/Swap-with-Me/blob/main/assets/logo192.png)
 # Swap-with-Me
 Somebody might need what you don't!
 
