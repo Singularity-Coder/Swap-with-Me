@@ -29,7 +29,7 @@ class ShareFragment : Fragment() {
     private lateinit var binding: FragmentShareBinding
 
     private val personsAdapter = PersonsAdapter()
-    private var duplicatePersonList = mutableListOf<Person>()
+    private var duplicateSwapItemList = mutableListOf<SwapItem>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,9 +59,9 @@ class ShareFragment : Fragment() {
         etSearch.doAfterTextChanged { keyWord: Editable? ->
             ibClearSearch.isVisible = keyWord.isNullOrBlank().not()
             if (keyWord.isNullOrBlank()) {
-                personsAdapter.personList = duplicatePersonList
+                personsAdapter.swapItemList = duplicateSwapItemList
             } else {
-                personsAdapter.personList = personsAdapter.personList.filter { it: Person -> it.name.contains(keyWord) }.toMutableList()
+                personsAdapter.swapItemList = personsAdapter.swapItemList.filter { it: SwapItem -> it.name.contains(keyWord) }.toMutableList()
             }
             personsAdapter.notifyDataSetChanged()
         }
@@ -69,92 +69,62 @@ class ShareFragment : Fragment() {
         ibClearSearch.setOnClickListener {
             etSearch.setText("")
         }
-        personsAdapter.setItemClickListener { person: Person, position: Int ->
+        personsAdapter.setItemClickListener { swapItem: SwapItem, position: Int ->
             PersonDetailBottomSheetFragment.newInstance(
                 adapterPosition = position,
-                person = person
+                swapItem = swapItem
             ).show(requireActivity().supportFragmentManager, TAG_PERSON_DETAIL_MODAL_BOTTOM_SHEET)
         }
     }
 
     private fun setDummyData() {
-        val hostList = listOf<Person>(
-            Person(
+        val hostList = listOf<SwapItem>(
+            SwapItem(
                 name = "Lelouch Lamperouge",
                 rating = 5f,
                 ratingCount = 3203,
-                iCanAfford = "0.0001 min",
                 tempImageDrawable = R.drawable.lelouch,
-                profession = "Emperor",
-                hourlyWorth = 99999999.99,
-                skillsList = listOf("Governing Countries", "Knightmare Pilot", "War Tactics", "International Strategy", "Hacking", "Logic", "Math", "Physics"),
-                servicesList = listOf("Full nation conquest in 24 hours.", "Can stage a rebellion in 2 hours.", "Hack into an xyz computer in 5 minutes.")
             ),
-            Person(
+            SwapItem(
                 name = "Jenny",
                 rating = 5f,
                 ratingCount = 3203,
-                iCanAfford = "1 min",
-                profession = "Rapper",
-                hourlyWorth = 9999.99,
-                skillsList = listOf("Singer", "Rapper", "Dancer", "Actress", "TV Star", "Instagram Influencer", "Youtube Influencer")
             ),
-            Person(
+            SwapItem(
                 name = "Lisa",
                 rating = 5f,
                 ratingCount = 5993,
-                iCanAfford = "1 min",
-                profession = "Dancer",
-                hourlyWorth = 9999.99,
-                skillsList = listOf("Singer", "Rapper", "Dancer", "Actress", "TV Star", "Instagram Influencer", "Youtube Influencer")
             ),
-            Person(
+            SwapItem(
                 name = "Rose",
                 rating = 5f,
                 ratingCount = 4002,
-                iCanAfford = "1 min",
                 tempImageDrawable = R.drawable.rose,
-                profession = "Singer",
-                hourlyWorth = 9999.99,
-                skillsList = listOf("Singer", "Rapper", "Dancer", "Actress", "TV Star", "Instagram Influencer", "Youtube Influencer")
             ),
-            Person(
+            SwapItem(
                 name = "Jisoo",
                 rating = 5f,
                 ratingCount = 6729,
-                iCanAfford = "1 min",
                 tempImageDrawable = R.drawable.jisoo,
-                profession = "Actress",
-                hourlyWorth = 9999.99,
-                skillsList = listOf("Singer", "Rapper", "Dancer", "Actress", "TV Star", "Instagram Influencer", "Youtube Influencer")
             ),
-            Person(
+            SwapItem(
                 name = "Monkey on the Hill",
                 rating = 1.5f,
                 ratingCount = 8,
-                iCanAfford = "18 hrs",
-                profession = "Runner",
-                hourlyWorth = 99.99
             ),
-            Person(
+            SwapItem(
                 name = "Jack the Black",
                 rating = 3f,
                 ratingCount = 33,
-                iCanAfford = "3 hrs",
                 tempImageDrawable = R.drawable.po,
-                profession = "Martial Artist",
-                hourlyWorth = 9.99
             ),
-            Person(
+            SwapItem(
                 name = "Kangaroo Boxer",
                 rating = 1.5f,
                 ratingCount = 8,
-                iCanAfford = "6 hrs",
-                profession = "Boxer",
-                hourlyWorth = 0.99
             ),
         )
-        personsAdapter.personList = hostList.toMutableList()
+        personsAdapter.swapItemList = hostList.toMutableList()
         personsAdapter.notifyDataSetChanged()
     }
 }

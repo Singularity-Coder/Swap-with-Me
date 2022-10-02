@@ -9,8 +9,8 @@ import com.singularitycoder.swapwithme.databinding.ListItemPersonBinding
 
 class PersonsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var personList = mutableListOf<Person>()
-    private var itemClickListener: (person: Person, position: Int) -> Unit = { person, position -> }
+    var swapItemList = mutableListOf<SwapItem>()
+    private var itemClickListener: (swapItem: SwapItem, position: Int) -> Unit = { person, position -> }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val itemBinding = ListItemPersonBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -18,14 +18,14 @@ class PersonsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as PersonViewHolder).setData(personList[position])
+        (holder as PersonViewHolder).setData(swapItemList[position])
     }
 
-    override fun getItemCount(): Int = personList.size
+    override fun getItemCount(): Int = swapItemList.size
 
     override fun getItemViewType(position: Int): Int = position
 
-    fun setItemClickListener(listener: (person: Person, position: Int) -> Unit) {
+    fun setItemClickListener(listener: (swapItem: SwapItem, position: Int) -> Unit) {
         itemClickListener = listener
     }
 
@@ -33,18 +33,17 @@ class PersonsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private val itemBinding: ListItemPersonBinding,
     ) : RecyclerView.ViewHolder(itemBinding.root) {
         @SuppressLint("SetTextI18n")
-        fun setData(person: Person) {
+        fun setData(swapItem: SwapItem) {
             itemBinding.apply {
-                tvHostName.text = person.name
-                tvUsableTimeCount.text = "${person.profession}  |  Can afford ~ ${person.iCanAfford}"
+                tvHostName.text = swapItem.name
 //                ratingHost.rating = person.rating
 //                tvRatingCount.text = "(${person.ratingCount})"
 //                tvDateAdded.text = host.dateStarted.toIntuitiveDateTime()
-                ivImage.load(person.tempImageDrawable) {
+                ivImage.load(swapItem.tempImageDrawable) {
                     placeholder(R.drawable.ic_placeholder)
                 }
                 cardBody.setOnClickListener {
-                    itemClickListener.invoke(person, bindingAdapterPosition)
+                    itemClickListener.invoke(swapItem, bindingAdapterPosition)
                 }
             }
         }

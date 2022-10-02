@@ -17,17 +17,18 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.textfield.TextInputLayout
 import com.singularitycoder.swapwithme.databinding.FragmentPersonDetailBottomSheetBinding
+import com.singularitycoder.swapwithme.databinding.FragmentSwapItemDetailBottomSheetBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PersonDetailBottomSheetFragment : BottomSheetDialogFragment() {
+class SwapItemDetailBottomSheetFragment : BottomSheetDialogFragment() {
 
     companion object {
         @JvmStatic
         fun newInstance(
             adapterPosition: Int,
             swapItem: SwapItem
-        ) = PersonDetailBottomSheetFragment().apply {
+        ) = SwapItemDetailBottomSheetFragment().apply {
             arguments = Bundle().apply {
                 putInt(ARG_PARAM_ADAPTER_POSITION, adapterPosition)
                 putParcelable(ARG_PARAM_PERSON, swapItem)
@@ -35,7 +36,7 @@ class PersonDetailBottomSheetFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private lateinit var binding: FragmentPersonDetailBottomSheetBinding
+    private lateinit var binding: FragmentSwapItemDetailBottomSheetBinding
 
     private var adapterPosition: Int = 0
     private var swapItem: SwapItem? = null
@@ -47,7 +48,7 @@ class PersonDetailBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentPersonDetailBottomSheetBinding.inflate(inflater, container, false)
+        binding = FragmentSwapItemDetailBottomSheetBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -81,12 +82,9 @@ class PersonDetailBottomSheetFragment : BottomSheetDialogFragment() {
 //        )
     }
 
-    private fun FragmentPersonDetailBottomSheetBinding.setupUI() {
+    private fun FragmentSwapItemDetailBottomSheetBinding.setupUI() {
         setBottomSheetBehaviour()
         ivImageExpanded.layoutParams.height = deviceWidth()
-        ivImage.load(swapItem?.tempImageDrawable) {
-            placeholder(R.drawable.ic_placeholder_big)
-        }
         ivImageExpanded.load(swapItem?.tempImageDrawable) {
             placeholder(R.drawable.ic_placeholder_big)
         }
@@ -121,13 +119,8 @@ class PersonDetailBottomSheetFragment : BottomSheetDialogFragment() {
 //        }
     }
 
-    private fun FragmentPersonDetailBottomSheetBinding.setupUserActionListeners() {
-        ivImage.setOnClickListener {
-            ivImageExpanded.isVisible = true
-            ivImage.isVisible = false
-        }
+    private fun FragmentSwapItemDetailBottomSheetBinding.setupUserActionListeners() {
         ivImageExpanded.setOnClickListener {
-            ivImage.isVisible = true
             ivImageExpanded.isVisible = false
         }
     }
@@ -166,7 +159,7 @@ class PersonDetailBottomSheetFragment : BottomSheetDialogFragment() {
         })
     }
 
-    private fun FragmentPersonDetailBottomSheetBinding.observeForData() {
+    private fun FragmentSwapItemDetailBottomSheetBinding.observeForData() {
 
     }
 

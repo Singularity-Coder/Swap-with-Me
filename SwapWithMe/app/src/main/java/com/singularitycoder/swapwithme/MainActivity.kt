@@ -17,6 +17,8 @@ import dagger.hilt.android.AndroidEntryPoint
 // Chat handled on whatsapp
 // get lat long for address
 
+// Profile will have all items
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
@@ -59,20 +61,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun ActivityMainBinding.setupUI() {
-        val user = Person(
+        val user = SwapItem(
             name = "Hithesh Vurjana",
             rating = 1f,
             ratingCount = 3333203,
-            iCanAfford = "24 hrs",
             tempImageDrawable = R.drawable.hithesh,
-            profession = "Software Engineer",
-            hourlyWorth = 999.99
         )
         ivImage.setImageDrawable(drawable(user.tempImageDrawable))
         ivImage.setOnClickListener {
             PersonDetailBottomSheetFragment.newInstance(
                 adapterPosition = 0,
-                person = user
+                swapItem = user
             ).show(supportFragmentManager, TAG_PERSON_DETAIL_MODAL_BOTTOM_SHEET)
         }
     }
